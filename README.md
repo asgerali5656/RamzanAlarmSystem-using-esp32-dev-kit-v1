@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ramzan Alarm System 🌙
 
 An ESP32-based smart alarm system designed to automate timetabled alerts for Sehri, Iftar, and daily prayer times during Ramzan. The system features a local web dashboard for remote management, auto-off buzzer sequences, deep-sleep power saving, wireless OTA (Over-The-Air) updates, and real-time LCD display integration for seamless daily scheduling and automation.
@@ -98,3 +99,7 @@ Below is the mapping for connecting your peripherals to the ESP32.
 
 ## 📄 License
 This codebase is open-source and free to modify for community use. Ramzan Mubarak!
+=======
+# RamzanAlarmSystem-using-esp32-dev-kit-v1
+An ESP32-based Ramzan Alarm System that automates offline timetabled alerts for Sehri, Iftar, and prayer times. Features a local web dashboard for remote management, auto-off buzzer sequences, deep-sleep power saving, wireless OTA updates, and real-time LCD display integration for seamless daily scheduling and automation.
+>>>>>>> b7c41f0c23744bb8b73d48c9445df3dafde51f71
