@@ -396,8 +396,12 @@ void startSehriAlarm() {
 
 void startIftarAlarm() {
     lastActionDescription = "Iftar";
-    startSehriAlarm(); 
+    initialSwitchStateA = btnHouseA.getState();
+    initialSwitchStateB = btnHouseB.getState();
+    buzzerA.startPattern(PATTERN_IFTAR);
+    buzzerB.startPattern(PATTERN_IFTAR);
     currentState = STATE_IFTAR_RINGING;
+    alarmScheduler.startAlarmDurationTracking();
 }
 
 void startPrayerBeep() { 

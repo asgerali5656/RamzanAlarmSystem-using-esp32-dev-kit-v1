@@ -181,39 +181,43 @@ int AlarmScheduler::checkAlarmTriggers(RamzanNetworkManager* network) {
         int preH = preTotalMins / 60;
         int preM = preTotalMins % 60;
 
-        if (h == preH && m == preM && s < 5) {
+        if (h == preH && m == preM && s < 10) {
              _todayAlarms.preSehriTriggered = true;
              return 3; // Pre-Sehri Code
         }
     }
 
-    // 2. Check Actual Sehri End (Exact Time) -> 2 Beeps
-    if (_todayAlarms.hasSehri && h == _todayAlarms.sehriHour && m == _todayAlarms.sehriMin && s < 5 && !_todayAlarms.sehriEndTriggered) {
+    // 2. Check Actual Sehri (Exact Time)
+    if (_todayAlarms.hasSehri && h == _todayAlarms.sehriHour && m == _todayAlarms.sehriMin && s < 10 && !_todayAlarms.sehriTriggered) {
+         _todayAlarms.sehriTriggered = true;
+         return 1; // Main Sehri Code
+    }
+
+    // 2a. Check Actual Sehri End (Exact Time) -> 2 Beeps
+    if (_todayAlarms.hasSehri && h == _todayAlarms.sehriHour && m == _todayAlarms.sehriMin && s < 10 && !_todayAlarms.sehriEndTriggered) {
          _todayAlarms.sehriEndTriggered = true;
          return 5; // Sehri End Beep code (maps to startPrayerBeep)
     }
     
     // 3. Check Iftar
     if (_todayAlarms.hasIftar) {
-        if (h == _todayAlarms.iftarHour && m == _todayAlarms.iftarMin && s < 5 && !_todayAlarms.iftarTriggered) {
+        if (h == _todayAlarms.iftarHour && m == _todayAlarms.iftarMin && s < 10 && !_todayAlarms.iftarTriggered) {
             _todayAlarms.iftarTriggered = true;
-            // User Request: Iftar should ring for 1 or 2 beeps (Prayer Style)
-            // We'll return code 4 which maps to startPrayerBeep()
-            return 4; 
+            return 2; // Iftar code
         }
     }
     
     // 4. Check Prayer Times
-    if (h == _todayAlarms.fajrHour && m == _todayAlarms.fajrMin && s < 5 && !_todayAlarms.fajrTriggered) {
+    if (h == _todayAlarms.fajrHour && m == _todayAlarms.fajrMin && s < 10 && !_todayAlarms.fajrTriggered) {
         _todayAlarms.fajrTriggered = true; return 4;
     }
-    if (h == _todayAlarms.zohrHour && m == _todayAlarms.zohrMin && s < 5 && !_todayAlarms.zohrTriggered) {
+    if (h == _todayAlarms.zohrHour && m == _todayAlarms.zohrMin && s < 10 && !_todayAlarms.zohrTriggered) {
         _todayAlarms.zohrTriggered = true; return 4;
     }
-    if (h == _todayAlarms.asrHour && m == _todayAlarms.asrMin && s < 5 && !_todayAlarms.asrTriggered) {
+    if (h == _todayAlarms.asrHour && m == _todayAlarms.asrMin && s < 10 && !_todayAlarms.asrTriggered) {
         _todayAlarms.asrTriggered = true; return 4;
     }
-    if (h == _todayAlarms.ishaHour && m == _todayAlarms.ishaMin && s < 5 && !_todayAlarms.ishaTriggered) {
+    if (h == _todayAlarms.ishaHour && m == _todayAlarms.ishaMin && s < 10 && !_todayAlarms.ishaTriggered) {
         _todayAlarms.ishaTriggered = true; return 4;
     }
 

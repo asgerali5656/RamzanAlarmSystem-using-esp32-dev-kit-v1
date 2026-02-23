@@ -97,6 +97,9 @@ void BuzzerEngine::update() {
         case PATTERN_SEHRI_IFTAR:
             handleSehriIftar();
             break;
+        case PATTERN_IFTAR:
+            handleIftar();
+            break;
         case PATTERN_PRAYER:
             handlePrayer();
             break;
@@ -144,6 +147,35 @@ void BuzzerEngine::handleAutoOffPattern() {
     if (elapsed >= currentDuration) {
         _stepIndex++;
         if (_stepIndex > 10) {
+            stop();
+        } else {
+            setBuzzer(nextState);
+            _lastStateChangeTime = now;
+        }
+    }
+}
+
+// Iftar: 3s ON, 3x Short Rings (200ms ON, 200ms OFF), then off.
+void BuzzerEngine::handleIftar() {
+    unsigned long now = millis();
+    unsigned long elapsed = now - _lastStateChangeTime;
+    
+    unsigned long currentDuration = 0;
+    bool nextState = false;
+
+    switch (_stepIndex) {
+        case 0: currentDuration = 3000; nextState = false; break;
+        case 1: currentDuration = 500;  nextState = true;  break;
+        case 2: currentDuration = 200;  nextState = false; break;
+        case 3: currentDuration = 200;  nextState = true;  break;
+        case 4: currentDuration = 200;  nextState = false; break;
+        case 5: currentDuration = 200;  nextState = true;  break;
+        case 6: currentDuration = 200;  nextState = false; break;
+    }
+
+    if (elapsed >= currentDuration) {
+        _stepIndex++;
+        if (_stepIndex > 6) {
             stop();
         } else {
             setBuzzer(nextState);

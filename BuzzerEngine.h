@@ -5,9 +5,10 @@
 
 enum PatternType {
     PATTERN_NONE,
-    PATTERN_PRE_SEHRI,   // Short Short Long Short Short Long...
-    PATTERN_SEHRI_IFTAR, // Continuous 5s... wait 10s... repeat
-    PATTERN_PRAYER       // 2 Short beeps... stop
+    PATTERN_PRE_SEHRI,   
+    PATTERN_SEHRI_IFTAR, 
+    PATTERN_IFTAR,       
+    PATTERN_PRAYER       
 };
 
 class BuzzerEngine {
@@ -41,6 +42,7 @@ private:
 
     void handlePreSehri();
     void handleSehriIftar();
+    void handleIftar();
     void handlePrayer();
     void handleAutoOffPattern();
 };
